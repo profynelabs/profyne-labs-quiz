@@ -1,32 +1,12 @@
-const STORAGE_QUESTIONS = 'profyne_questions';
-const STORAGE_SUBMISSIONS = 'profyne_submissions';
-const STORAGE_WRITTEN = 'profyne_written_submissions';
-const STORAGE_WRITTEN_QUESTIONS = 'profyne_written_questions_list';
-const STORAGE_TIMER = 'profyne_timer_setting';
-const STORAGE_ADMIN_PASS = 'profyne_admin_pass';
+// আপনার তৈরি Google Apps Script Web App-এর URL এখানে বসান
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwpCEuY1prqX71bboKS2iXDAEJdlJAqRxfcKCpx5HU2hYE8pV3BfYjk6J8xNzWUfCe6xA/exec";
 
-const defaultQuestions = [
-    {
-        question: "What does HTML stand for?",
-        options: ["Hyper Text Markup Language", "High Tech Multi Language", "Hyper Transfer Markup Language", "None of these"],
-        correct: 0
-    },
-    {
-        question: "Which Tailwind CSS class is used to make text bold?",
-        options: ["font-normal", "font-bold", "text-bold", "weight-bold"],
-        correct: 1
-    }
-];
-
-let questions = JSON.parse(localStorage.getItem(STORAGE_QUESTIONS)) || defaultQuestions;
-let submissions = JSON.parse(localStorage.getItem(STORAGE_SUBMISSIONS)) || [];
-let writtenSubmissions = JSON.parse(localStorage.getItem(STORAGE_WRITTEN)) || [];
-let writtenQuestions = JSON.parse(localStorage.getItem(STORAGE_WRITTEN_QUESTIONS)) || [
-    "Describe your career goals and technical expertise.",
-    "What are the main responsibilities of your trade?"
-];
-let quizTimerSetting = parseInt(localStorage.getItem(STORAGE_TIMER)) || 30;
-let adminPassword = localStorage.getItem(STORAGE_ADMIN_PASS) || "profyne123";
+let questions = [];
+let submissions = [];
+let writtenSubmissions = [];
+let writtenQuestions = [];
+let quizTimerSetting = 30;
+let adminPassword = "profyne123";
 
 let currentStudent = { name: '', trade: '', phone: '', avatar: '' };
 let currentQuestionIndex = 0;
@@ -35,11 +15,65 @@ let timerInterval = null;
 let timeLeft = quizTimerSetting;
 let isAdminLoggedIn = false;
 
-window.onload = function () {
+window.onload = async function () {
     if (typeof lucide !== 'undefined') lucide.createIcons();
     document.documentElement.classList.add('dark');
-    renderAdminWrittenQuestionsList();
+    await loadDataFromGoogleSheet();
 };
+
+async function loadDataFromGoogleSheet() {
+    try {
+        let resQ = await fetch(`${WEB_APP_URL}?action=getQuestions`);
+        let qData = await resQ.json();
+        if (qData && qData.length > 0) {
+            questions = qData.map(item => ({
+                question: item.question,
+                options: [item.opt0, item.opt1, item.opt2, item.opt3],
+                correct: parseInt(item.correct)
+            }));
+        }
+
+        let resWQ = await fetch(`${WEB_APP_URL}?action=getWrittenQuestions`);
+        let wqData = await resWQ.json();
+        if (wqData && wqData.length > 0) {
+            writtenQuestions = wqData.map(item => item.question);
+        }
+
+        let resSub = await fetch(`${WEB_APP_URL}?action=getSubmissions`);
+        let subData = await resSub.json();
+        if (subData) submissions = subData;
+
+        let resWritten = await fetch(`${WEB_APP_URL}?action=getWritten`);
+        let writtenData = await resWritten.json();
+        if (writtenData) writtenSubmissions = writtenData;
+
+        renderAdminWrittenQuestionsList();
+    } catch (err) {
+        console.error("Failed to load data from database: ", err);
+    }
+}
+
+async function syncQuestionsToSheet() {
+    try {
+        await fetch(WEB_APP_URL, {
+            method: "POST",
+            body: JSON.stringify({ action: "saveQuestions", questions: questions })
+        });
+    } catch (err) {
+        console.error("Failed to sync questions:", err);
+    }
+}
+
+async function syncWrittenQuestionsToSheet() {
+    try {
+        await fetch(WEB_APP_URL, {
+            method: "POST",
+            body: JSON.stringify({ action: "saveWrittenQuestions", questions: writtenQuestions })
+        });
+    } catch (err) {
+        console.error("Failed to sync written questions:", err);
+    }
+}
 
 function toggleDarkMode() {
     const html = document.documentElement;
@@ -64,7 +98,7 @@ function switchTab(tab) {
     const studentView = document.getElementById('student-view');
     const writtenView = document.getElementById('written-view');
     const adminView = document.getElementById('admin-view');
-    
+
     const navStudent = document.getElementById('nav-student');
     const navWritten = document.getElementById('nav-written');
     const navAdmin = document.getElementById('nav-admin');
@@ -109,7 +143,7 @@ function previewAvatar(event) {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             temporaryAvatarBase64 = e.target.result;
             const container = document.getElementById('avatar-preview-container');
             container.innerHTML = `<img src="${temporaryAvatarBase64}" class="w-full h-full object-cover">`;
@@ -134,11 +168,11 @@ function startQuiz(event) {
         return;
     }
 
-    currentStudent = { 
-        name, 
-        trade, 
-        phone, 
-        avatar: temporaryAvatarBase64 || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80' 
+    currentStudent = {
+        name,
+        trade,
+        phone,
+        avatar: temporaryAvatarBase64 || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'
     };
     currentQuestionIndex = 0;
     score = 0;
@@ -211,7 +245,7 @@ function selectOption(selectedIndex) {
     if (selectedIndex === q.correct) {
         score++;
     }
-    
+
     document.getElementById('next-btn').classList.remove('hidden');
 }
 
@@ -220,7 +254,7 @@ function nextQuestion() {
     loadQuestion();
 }
 
-function finishQuiz() {
+async function finishQuiz() {
     document.getElementById('quiz-box').classList.add('hidden');
     document.getElementById('quiz-result-card').classList.remove('hidden');
 
@@ -233,6 +267,7 @@ function finishQuiz() {
     document.getElementById('badge-date').innerText = subDate;
 
     const submissionData = {
+        action: "saveSubmission",
         name: currentStudent.name,
         trade: currentStudent.trade,
         phone: currentStudent.phone,
@@ -241,7 +276,16 @@ function finishQuiz() {
         date: subDate
     };
     submissions.unshift(submissionData);
-    localStorage.setItem(STORAGE_SUBMISSIONS, JSON.stringify(submissions));
+
+    try {
+        await fetch(WEB_APP_URL, {
+            method: "POST",
+            body: JSON.stringify(submissionData)
+        });
+    } catch (err) {
+        console.error("Failed to save submission to database:", err);
+    }
+
     if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
@@ -291,7 +335,7 @@ function addWrittenExamQuestion(event) {
     if (!qText) return;
 
     writtenQuestions.push(qText);
-    localStorage.setItem(STORAGE_WRITTEN_QUESTIONS, JSON.stringify(writtenQuestions));
+    syncWrittenQuestionsToSheet();
     input.value = '';
     renderAdminWrittenQuestionsList();
     showProfynePopup("✅ Success", "Written question added successfully!", "purple");
@@ -322,12 +366,12 @@ function renderAdminWrittenQuestionsList() {
 function deleteWrittenQuestion(index) {
     if (confirm("Are you sure you want to delete this written question?")) {
         writtenQuestions.splice(index, 1);
-        localStorage.setItem(STORAGE_WRITTEN_QUESTIONS, JSON.stringify(writtenQuestions));
+        syncWrittenQuestionsToSheet();
         renderAdminWrittenQuestionsList();
     }
 }
 
-function submitWrittenAnswers(event) {
+async function submitWrittenAnswers(event) {
     event.preventDefault();
     const name = document.getElementById('written-name').value.trim();
     const trade = document.getElementById('written-trade').value.trim();
@@ -345,20 +389,29 @@ function submitWrittenAnswers(event) {
         answersSummary += `[Q${index + 1}: ${q}] Ans: ${ansText} || `;
     });
 
-    const newSub = { 
-        name, 
-        trade, 
-        phone, 
-        answer: answersSummary, 
-        date: new Date().toLocaleString() 
+    const newSub = {
+        action: "saveWritten",
+        name,
+        trade,
+        phone,
+        answer: answersSummary,
+        date: new Date().toLocaleString()
     };
 
     writtenSubmissions.unshift(newSub);
-    localStorage.setItem(STORAGE_WRITTEN, JSON.stringify(writtenSubmissions));
+
+    try {
+        await fetch(WEB_APP_URL, {
+            method: "POST",
+            body: JSON.stringify(newSub)
+        });
+    } catch (err) {
+        console.error("Failed to save written answer to database:", err);
+    }
 
     document.getElementById('written-form').reset();
     renderStudentWrittenQuestions();
-    
+
     showProfynePopup("✨ Submitted Successfully!", "Your written answers have been recorded successfully.", "purple");
 }
 
@@ -439,7 +492,7 @@ function handleFormSubmit(event) {
         cancelEdit();
     }
 
-    localStorage.setItem(STORAGE_QUESTIONS, JSON.stringify(questions));
+    syncQuestionsToSheet();
     document.getElementById('question-form').reset();
     renderAdminQuestions();
     showProfynePopup("✅ Success", "Question saved successfully!", "purple");
@@ -493,7 +546,7 @@ function cancelEdit() {
 function deleteQuestion(index) {
     if (confirm("Delete this question?")) {
         questions.splice(index, 1);
-        localStorage.setItem(STORAGE_QUESTIONS, JSON.stringify(questions));
+        syncQuestionsToSheet();
         renderAdminQuestions();
     }
 }
@@ -540,7 +593,6 @@ function renderSubmissionsTable() {
 function clearSubmissions() {
     if (confirm("Clear quiz history?")) {
         submissions = [];
-        localStorage.removeItem(STORAGE_SUBMISSIONS);
         renderSubmissionsTable();
     }
 }
@@ -585,7 +637,6 @@ function renderWrittenSubmissionsTable() {
 function clearWrittenSubmissions() {
     if (confirm("Clear written submissions?")) {
         writtenSubmissions = [];
-        localStorage.removeItem(STORAGE_WRITTEN);
         renderWrittenSubmissionsTable();
     }
 }
@@ -603,7 +654,6 @@ function closeSettingsModal() {
 }
 function saveTimerSetting() {
     quizTimerSetting = parseInt(document.getElementById('setting-timer-input').value);
-    localStorage.setItem(STORAGE_TIMER, quizTimerSetting);
     closeSettingsModal();
     showProfynePopup("✅ Success", "Timer updated successfully!", "purple");
 }
@@ -620,9 +670,8 @@ function closePasswordModal() {
 }
 function saveAdminPassword() {
     const newPass = document.getElementById('new-admin-pass').value.trim();
-    if(!newPass) return;
+    if (!newPass) return;
     adminPassword = newPass;
-    localStorage.setItem(STORAGE_ADMIN_PASS, adminPassword);
     closePasswordModal();
     document.getElementById('new-admin-pass').value = '';
     showProfynePopup("✅ Success", "Admin password updated successfully!", "purple");
