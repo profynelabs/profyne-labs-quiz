@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROFYNE ACADEMY - Learn with Raihan Sir | Portal</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        profyne: {
+                            50: '#f0f5ff',
+                            100: '#e0eaff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#0f172a',
+                            gold: '#f59e0b'
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': {transform: 'translate(0px, 0px) scale(1)'},
+                            '33%': {transform: 'translate(30px, -50px) scale(1.1)'},
+                            '66%': {transform: 'translate(-20px, 20px) scale(0.9)'},
+                            '100%': {transform: 'translate(0px, 0px) scale(1)'}
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body
+    class="bg-slate-950 text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white relative overflow-x-hidden transition-colors duration-300 font-['Inter']">
+
+    <!-- Decorative background blobs -->
+    <div
+        class="absolute top-0 -left-10 w-[500px] h-[500px] bg-indigo-600/20 rounded-full filter blur-[140px] pointer-events-none animate-blob">
+    </div>
+    <div
+        class="absolute top-1/2 -right-10 w-[500px] h-[500px] bg-purple-600/20 rounded-full filter blur-[140px] pointer-events-none animate-blob animation-delay-2000">
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="glass-header sticky top-0 z-50 border-b border-white/10 backdrop-blur-md bg-slate-950/70">
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-0 sm:h-20 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="w-full sm:w-auto flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 text-white p-3 rounded-2xl shadow-lg shadow-indigo-500/30 ring-1 ring-white/20 flex items-center justify-center">
+                        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h1
+                            class="text-xl sm:text-2xl font-black bg-gradient-to-r from-white via-indigo-200 to-amber-300 bg-clip-text text-transparent tracking-tight">
+                            PROFYNE ACADEMY</h1>
+                        <p class="text-[10px] font-semibold text-indigo-400 tracking-wider uppercase">Learn with Raihan
+                            Sir
+                        </p>
+                    </div>
+                </div>
+                <button onclick="toggleDarkMode()"
+                    class="sm:hidden p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 transition border border-white/10 shadow-sm"
+                    title="Toggle Theme">
+                    <i id="theme-icon-mobile" data-lucide="sun" class="w-4 h-4 text-amber-400"></i>
+                </button>
+            </div>
+
+            <div class="w-full sm:w-auto flex items-center justify-between sm:space-x-4">
+                <button onclick="toggleDarkMode()"
+                    class="hidden sm:flex p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 transition border border-white/10 shadow-sm"
+                    title="Toggle Theme">
+                    <i id="theme-icon" data-lucide="sun" class="w-4 h-4 text-amber-400"></i>
+                </button>
+
+                <!-- Navigation Tabs (3 Bars on Small Screens) -->
+                <div
+                    class="w-full sm:w-auto flex flex-col sm:flex-row bg-slate-900/90 p-1.5 rounded-2xl border border-white/10 shadow-inner gap-1.5">
+                    <button onclick="switchTab('student')" id="nav-student"
+                        class="w-full sm:w-auto px-4 py-2 rounded-xl font-semibold text-sm transition bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg flex items-center justify-center sm:justify-start space-x-2">
+                        <i data-lucide="laptop-2" class="w-4 h-4"></i>
+                        <span>Student Portal</span>
+                    </button>
+                    <button onclick="switchTab('written')" id="nav-written"
+                        class="w-full sm:w-auto px-4 py-2 rounded-xl font-semibold text-sm transition text-slate-400 hover:text-white flex items-center justify-center sm:justify-start space-x-2">
+                        <i data-lucide="file-text" class="w-4 h-4"></i>
+                        <span>Written Exam</span>
+                    </button>
+                    <button onclick="switchTab('admin')" id="nav-admin"
+                        class="w-full sm:w-auto px-4 py-2 rounded-xl font-semibold text-sm transition text-slate-400 hover:text-white flex items-center justify-center sm:justify-start space-x-2">
+                        <i data-lucide="shield-lock" class="w-4 h-4 text-amber-400"></i>
+                        <span>Admin</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
+
+        <!-- STUDENT PORTAL VIEW -->
+        <div id="student-view" class="space-y-6">
+            <div id="quiz-start-card"
+                class="glass-card rounded-3xl p-8 sm:p-12 shadow-2xl max-w-xl mx-auto relative overflow-hidden border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                <div
+                    class="w-20 h-20 bg-gradient-to-tr from-indigo-600 to-purple-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-indigo-500/30">
+                    <i data-lucide="brain" class="w-10 h-10"></i>
+                </div>
+                <h2
+                    class="text-3xl font-black mb-2 text-center bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+                    Quiz Registration</h2>
+                <p class="text-slate-400 text-sm mb-6 text-center">Please enter your details (Profile picture is
+                    optional).</p>
+
+                <form id="student-reg-form" onsubmit="startQuiz(event)" class="space-y-4 mb-8">
+                    <!-- Profile Picture Upload (Optional) -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Profile
+                            Picture <span class="text-slate-500 font-normal">(Optional)</span></label>
+                        <div
+                            class="flex items-center space-x-4 bg-slate-900/80 border border-slate-700/80 p-3 rounded-2xl">
+                            <div id="avatar-preview-container"
+                                class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden border border-indigo-500/30 flex-shrink-0">
+                                <i data-lucide="user" class="w-6 h-6 text-slate-400"></i>
+                            </div>
+                            <input type="file" id="student-avatar-input" accept="image/*"
+                                onchange="previewAvatar(event)"
+                                class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 cursor-pointer">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Full
+                            Name</label>
+                        <input type="text" id="student-name-input" required placeholder="e.g. Tanvir Ahmed"
+                            class="w-full px-4 py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white font-medium">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Trade /
+                            Department</label>
+                        <input type="text" id="student-trade-input" required placeholder="e.g. Computer Science"
+                            class="w-full px-4 py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white font-medium">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Phone
+                            Number</label>
+                        <input type="tel" id="student-phone-input" required placeholder="e.g. 01700000000"
+                            class="w-full px-4 py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white font-medium">
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 text-white font-bold py-4 px-8 rounded-2xl shadow-xl shadow-indigo-600/30 transition text-base flex items-center justify-center space-x-2 border border-white/20 mt-4">
+                        <span>Start Quiz Now</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Quiz Screen -->
+            <div id="quiz-box"
+                class="hidden glass-card rounded-3xl p-6 sm:p-10 shadow-2xl max-w-2xl mx-auto relative overflow-hidden border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                <div class="flex justify-between items-center mb-6 pb-4 border-b border-white/10">
+                    <div>
+                        <span id="greeting-student" class="text-xs font-bold text-indigo-400 block">Student</span>
+                        <span id="question-progress"
+                            class="text-sm font-bold text-white bg-indigo-600/30 px-3.5 py-1 rounded-full border border-indigo-500/30">Question
+                            1 / 10</span>
+                    </div>
+                    <div id="timer-badge"
+                        class="flex items-center space-x-2 text-amber-400 font-bold bg-amber-500/10 px-4 py-2 rounded-2xl border border-amber-500/20">
+                        <i data-lucide="clock" class="w-4 h-4 animate-spin"></i>
+                        <span><span id="time-left">30</span> s</span>
+                    </div>
+                </div>
+
+                <div class="w-full bg-slate-900/80 rounded-full h-2 mb-8 overflow-hidden border border-white/5">
+                    <div id="timer-progress-bar"
+                        class="bg-gradient-to-r from-indigo-500 to-pink-500 h-full w-full transition-all duration-1000 ease-linear">
+                    </div>
+                </div>
+
+                <h3 id="question-text" class="text-xl sm:text-2xl font-bold mb-8 text-white leading-snug">Question text?
+                </h3>
+                <div id="options-container" class="space-y-3.5 mb-8"></div>
+
+                <div class="flex justify-end">
+                    <button id="next-btn" onclick="nextQuestion()"
+                        class="hidden bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-3.5 px-8 rounded-2xl transition shadow-lg flex items-center space-x-2">
+                        <span>Next Question</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result Card & Premium Glass User Card -->
+            <div id="quiz-result-card" class="hidden space-y-6 max-w-xl mx-auto">
+                <div
+                    class="glass-card rounded-3xl p-8 sm:p-10 shadow-2xl text-center border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                    <div
+                        class="w-20 h-20 bg-gradient-to-tr from-emerald-500 to-teal-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-emerald-500/30">
+                        <i data-lucide="award" class="w-10 h-10"></i>
+                    </div>
+                    <h2 class="text-2xl font-black mb-2 text-white">Quiz Completed!</h2>
+                    <p class="text-slate-400 mb-6 text-sm">Here is your performance summary card below.</p>
+                </div>
+
+                <!-- Modern Premium Glass Student Badge Card -->
+                <div id="student-badge-card"
+                    class="relative overflow-hidden rounded-3xl p-8 border border-white/20 bg-gradient-to-br from-indigo-950/80 via-slate-900/90 to-purple-950/80 shadow-2xl backdrop-blur-2xl text-white">
+                    <div
+                        class="absolute -top-12 -right-12 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl pointer-events-none">
+                    </div>
+
+                    <div class="flex items-center space-x-5 mb-6">
+                        <img id="badge-avatar" src="" alt="Avatar"
+                            class="w-20 h-20 rounded-2xl object-cover border-2 border-indigo-400/50 shadow-lg">
+                        <div>
+                            <span
+                                class="text-[10px] uppercase tracking-widest bg-indigo-500/20 text-indigo-300 font-extrabold px-3 py-1 rounded-full border border-indigo-500/30 inline-block mb-1">Profyne
+                                Scholar</span>
+                            <h3 id="badge-name" class="text-2xl font-black tracking-tight text-white">Student Name</h3>
+                            <p id="badge-trade" class="text-sm font-medium text-slate-300">Trade: Computer Science</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
+                        <div class="bg-slate-900/50 p-4 rounded-2xl border border-white/5">
+                            <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Final Score</span>
+                            <span id="badge-score" class="text-3xl font-black text-amber-400">0 / 0</span>
+                        </div>
+                        <div class="bg-slate-900/50 p-4 rounded-2xl border border-white/5">
+                            <span class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Submission
+                                Date</span>
+                            <span id="badge-date" class="text-xs font-semibold text-slate-300 mt-2 block">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <button onclick="resetQuiz()"
+                        class="flex-1 bg-white/5 hover:bg-white/10 font-bold py-3.5 px-6 rounded-2xl transition border border-white/10 flex items-center justify-center space-x-2">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        <span>Retake Quiz</span>
+                    </button>
+                    <button onclick="switchTab('student')"
+                        class="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 font-bold py-3.5 px-6 rounded-2xl transition shadow-lg flex items-center justify-center space-x-2">
+                        <i data-lucide="home" class="w-4 h-4"></i>
+                        <span>Home</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- WRITTEN PORTAL VIEW -->
+        <div id="written-view" class="hidden space-y-6">
+            <div
+                class="glass-card rounded-3xl p-8 sm:p-12 shadow-2xl max-w-2xl mx-auto border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                <div
+                    class="w-20 h-20 bg-gradient-to-tr from-purple-600 to-pink-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-purple-500/30">
+                    <i data-lucide="pen-tool" class="w-10 h-10"></i>
+                </div>
+                <h2
+                    class="text-3xl font-black mb-2 text-center bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+                    Written Examination</h2>
+                <p class="text-slate-400 text-sm mb-6 text-center">Please fill in your details and answer the written
+                    questions below.</p>
+
+                <form id="written-form" onsubmit="submitWrittenAnswers(event)" class="space-y-6">
+                    <div class="space-y-4 pb-4 border-b border-white/10">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Full
+                                Name</label>
+                            <input type="text" id="written-name" required placeholder="e.g. Tanvir Ahmed"
+                                class="w-full px-4 py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white font-medium">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Trade
+                                / Department</label>
+                            <input type="text" id="written-trade" required placeholder="e.g. Computer Science"
+                                class="w-full px-4 py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white font-medium">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Phone
+                                Number</label>
+                            <input type="tel" id="written-phone" required placeholder="e.g. 01700000000"
+                                class="w-full px-4 py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white font-medium">
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Written Questions Container -->
+                    <div id="written-questions-container" class="space-y-6"></div>
+
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 text-white font-bold py-4 px-8 rounded-2xl shadow-xl transition">
+                        Submit All Written Answers
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ADMIN PANEL VIEW -->
+        <div id="admin-view" class="hidden space-y-8">
+            <!-- Lockscreen -->
+            <div id="admin-lockscreen"
+                class="glass-card rounded-3xl p-8 sm:p-10 shadow-2xl text-center max-w-md mx-auto border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                <div
+                    class="w-16 h-16 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-amber-500/30">
+                    <i data-lucide="shield-check" class="w-8 h-8"></i>
+                </div>
+                <h2 class="text-2xl font-black mb-2 text-white">Admin Authentication</h2>
+                <p class="text-slate-400 text-sm mb-6">Enter admin password to manage portal.</p>
+                <form onsubmit="handleAdminLogin(event)" class="space-y-4 text-left">
+                    <input type="password" id="admin-password-input" required placeholder="Password..."
+                        class="w-full rounded-2xl bg-slate-900/90 border border-slate-700 px-4 py-3.5 outline-none font-medium text-white">
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black py-3.5 px-6 rounded-2xl shadow-lg transition">
+                        Login
+                    </button>
+                </form>
+            </div>
+
+            <!-- Unlocked Admin Dashboard -->
+            <div id="admin-dashboard" class="hidden space-y-8">
+                <div
+                    class="glass-card p-6 rounded-3xl flex flex-col sm:flex-row justify-between items-center gap-4 border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                    <div class="flex items-center space-x-3">
+                        <div
+                            class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30">
+                            <i data-lucide="user-cog" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-lg">Admin Control Center</h3>
+                            <p class="text-xs text-slate-400">Manage Quiz, Written Questions & Submissions</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="openSettingsModal()"
+                            class="px-3.5 py-2 rounded-xl bg-indigo-500/20 text-indigo-300 font-semibold text-xs border border-indigo-500/30 flex items-center space-x-1.5">
+                            <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+                            <span>Timer</span>
+                        </button>
+                        <button onclick="openPasswordModal()"
+                            class="px-3.5 py-2 rounded-xl bg-amber-500/20 text-amber-300 font-semibold text-xs border border-amber-500/30 flex items-center space-x-1.5">
+                            <i data-lucide="key" class="w-3.5 h-3.5"></i>
+                            <span>Change Password</span>
+                        </button>
+                        <button onclick="handleAdminLogout()"
+                            class="px-3.5 py-2 rounded-xl bg-rose-500/10 text-rose-400 font-semibold text-xs border border-rose-500/20 flex items-center space-x-1.5">
+                            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Written Exam Question Setup Form -->
+                <div class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                    <h2 class="text-xl font-bold mb-4 flex items-center text-purple-400">
+                        <i data-lucide="file-pen" class="w-5 h-5 mr-2"></i>Manage Written Exam Questions
+                    </h2>
+                    <form onsubmit="addWrittenExamQuestion(event)" class="space-y-4 mb-6">
+                        <textarea id="admin-written-q-input" rows="2" required
+                            placeholder="Type a new written exam question..."
+                            class="w-full rounded-2xl bg-slate-900/90 border border-slate-700 p-3.5 outline-none text-white font-medium"></textarea>
+                        <button type="submit"
+                            class="bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold px-6 py-3 rounded-xl text-sm shadow-lg">
+                            Add Written Question
+                        </button>
+                    </form>
+
+                    <div class="space-y-3">
+                        <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider">Active Written Questions
+                        </h3>
+                        <div id="admin-written-questions-list" class="space-y-2 max-h-[250px] overflow-y-auto pr-2">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCQ Question Add Form -->
+                <div class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                    <h2 id="form-title" class="text-xl font-bold mb-6 flex items-center text-indigo-400">
+                        <i data-lucide="plus-circle" class="w-5 h-5 mr-2"></i>Add MCQ Question
+                    </h2>
+                    <form id="question-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <input type="hidden" id="edit-index" value="-1">
+                        <textarea id="q-text" rows="2" required placeholder="Type question statement..."
+                            class="w-full rounded-2xl bg-slate-900/90 border border-slate-700 p-3.5 outline-none font-medium text-white"></textarea>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <input type="text" id="opt-0" required placeholder="Option A"
+                                class="rounded-xl bg-slate-900/90 border border-slate-700 p-3 outline-none text-white text-sm">
+                            <input type="text" id="opt-1" required placeholder="Option B"
+                                class="rounded-xl bg-slate-900/90 border border-slate-700 p-3 outline-none text-white text-sm">
+                            <input type="text" id="opt-2" required placeholder="Option C"
+                                class="rounded-xl bg-slate-900/90 border border-slate-700 p-3 outline-none text-white text-sm">
+                            <input type="text" id="opt-3" required placeholder="Option D"
+                                class="rounded-xl bg-slate-900/90 border border-slate-700 p-3 outline-none text-white text-sm">
+                        </div>
+                        <select id="correct-opt"
+                            class="w-full rounded-2xl bg-slate-900/90 border border-slate-700 p-3.5 outline-none font-medium text-white">
+                            <option value="0">Option A Correct</option>
+                            <option value="1">Option B Correct</option>
+                            <option value="2">Option C Correct</option>
+                            <option value="3">Option D Correct</option>
+                        </select>
+                        <div class="flex justify-end space-x-3 pt-3">
+                            <button type="button" id="cancel-edit-btn" onclick="cancelEdit()"
+                                class="hidden bg-white/5 px-5 py-2.5 rounded-xl border border-white/10">Cancel</button>
+                            <button type="submit" id="submit-btn"
+                                class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold px-7 py-3 rounded-xl shadow-lg">Save
+                                Question</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Manage Questions List -->
+                <div class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                    <h2 class="text-xl font-bold mb-4 flex items-center justify-between text-white">
+                        <span><i data-lucide="list-checks" class="w-5 h-5 text-indigo-400 mr-2 inline"></i>Question
+                            Bank</span>
+                        <span id="admin-total-count"
+                            class="text-xs bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full border border-indigo-500/30">0</span>
+                    </h2>
+                    <div id="admin-questions-list" class="space-y-4 max-h-[350px] overflow-y-auto pr-2"></div>
+                </div>
+
+                <!-- Quiz Submissions Cards -->
+                <div class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold flex items-center text-white">
+                            <i data-lucide="users" class="w-5 h-5 text-amber-400 mr-2"></i>Quiz Submissions
+                        </h2>
+                        <button onclick="clearSubmissions()"
+                            class="px-3 py-1.5 rounded-xl bg-rose-500/10 text-rose-400 font-semibold text-xs border border-rose-500/30">Clear
+                            All</button>
+                    </div>
+                    <div id="quiz-submissions-cards" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                </div>
+
+                <!-- Written Exam Submissions Cards -->
+                <div class="glass-card p-6 sm:p-8 rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold flex items-center text-white">
+                            <i data-lucide="book-open" class="w-5 h-5 text-purple-400 mr-2"></i>Written Submissions
+                        </h2>
+                        <button onclick="clearWrittenSubmissions()"
+                            class="px-3 py-1.5 rounded-xl bg-rose-500/10 text-rose-400 font-semibold text-xs border border-rose-500/30">Clear
+                            All</button>
+                    </div>
+                    <div id="written-submissions-cards" class="grid grid-cols-1 gap-4"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Timer Settings Modal -->
+    <div id="settings-modal"
+        class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="glass-card rounded-3xl p-6 sm:p-8 max-w-md w-full border border-white/10 bg-slate-900 shadow-2xl">
+            <h3 class="text-xl font-bold mb-4 text-white">Quiz Timer Settings</h3>
+            <input type="number" id="setting-timer-input" min="5" max="120" value="30"
+                class="w-full rounded-2xl bg-slate-950 border border-slate-700 p-3.5 text-white font-bold mb-6 outline-none">
+            <div class="flex justify-end space-x-3">
+                <button onclick="closeSettingsModal()"
+                    class="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10">Cancel</button>
+                <button onclick="saveTimerSetting()"
+                    class="px-6 py-2.5 rounded-xl bg-indigo-600 font-bold text-white">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Password Change Modal -->
+    <div id="password-modal"
+        class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div
+            class="glass-card rounded-3xl p-6 sm:p-8 max-w-md w-full border border-white/10 bg-slate-900 shadow-2xl space-y-4">
+            <h3 class="text-xl font-bold text-white">Change Admin Password</h3>
+            <input type="password" id="new-admin-pass" placeholder="Enter new password"
+                class="w-full rounded-2xl bg-slate-950 border border-slate-700 p-3.5 text-white font-bold outline-none">
+            <div class="flex justify-end space-x-3 pt-2">
+                <button onclick="closePasswordModal()"
+                    class="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10">Cancel</button>
+                <button onclick="saveAdminPassword()"
+                    class="px-6 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold">Update Password</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Written Exam Submission Success Glass Popup Modal -->
+    <div id="written-success-modal"
+        class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div
+            class="glass-card rounded-3xl p-8 max-w-md w-full border border-white/10 bg-slate-900/90 shadow-2xl text-center space-y-4 backdrop-blur-2xl">
+            <div
+                class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto border border-emerald-500/30">
+                <i data-lucide="check-circle" class="w-8 h-8"></i>
+            </div>
+            <h3 class="text-2xl font-black text-white">Submission Successful!</h3>
+            <p class="text-slate-300 text-sm">আপনার লিখিত উত্তরগুলো সফলভাবে জমা হয়েছে। রাইহান স্যার খুব শীঘ্রই এগুলো
+                মূল্যায়ন করবেন।</p>
+            <button onclick="closeWrittenModal()"
+                class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg transition hover:from-emerald-400">
+                ঠিক আছে (OK)
+            </button>
+        </div>
+    </div>
+
+    <!-- Profyne Custom Popup Modal -->
+    <div id="profyne-popup-modal"
+        class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div
+            class="glass-card rounded-3xl p-8 max-w-md w-full border border-white/10 bg-slate-900/90 shadow-2xl text-center space-y-4 backdrop-blur-2xl">
+            <div id="popup-icon-container"
+                class="w-16 h-16 bg-purple-500/20 text-purple-400 rounded-2xl flex items-center justify-center mx-auto border border-purple-500/30">
+                <i data-lucide="check-circle-2" class="w-8 h-8"></i>
+            </div>
+            <h3 id="popup-title" class="text-2xl font-black text-white">Title</h3>
+            <p id="popup-message" class="text-slate-300 text-sm">Message</p>
+            <button onclick="closeProfynePopup()"
+                class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg transition hover:opacity-90">
+                ঠিক আছে (OK)
+            </button>
+        </div>
+    </div>
+
+    <!-- Script File Link -->
+    <script src="script.js"></script>
+</body>
+
+</html>
