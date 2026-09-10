@@ -49,26 +49,24 @@
 </head>
 
 <body
-    class="bg-slate-950 text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white relative overflow-x-hidden transition-colors duration-300 font-['Inter']">
+    class="bg-slate-950 text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white relative overflow-x-hidden transition-colors duration-300 font-['Inter'] flex flex-col justify-between">
 
     <!-- Decorative background blobs -->
     <div
-        class="absolute top-0 -left-10 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-indigo-600/20 rounded-full filter blur-[100px] sm:blur-[140px] pointer-events-none animate-blob">
+        class="absolute top-0 -left-10 w-72 h-72 sm:w-[500px] sm:h-[500px] bg-indigo-600/20 rounded-full filter blur-[100px] sm:blur-[140px] pointer-events-none animate-blob">
     </div>
     <div
-        class="absolute top-1/2 -right-10 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-purple-600/20 rounded-full filter blur-[100px] sm:blur-[140px] pointer-events-none animate-blob animation-delay-2000">
+        class="absolute top-1/2 -right-10 w-72 h-72 sm:w-[500px] sm:h-[500px] bg-purple-600/20 rounded-full filter blur-[100px] sm:blur-[140px] pointer-events-none animate-blob animation-delay-2000">
     </div>
 
     <!-- Header / Navbar -->
-    <header class="glass-header sticky top-0 z-50 border-b border-white/10 backdrop-blur-md bg-slate-950/80">
+    <header class="glass-header sticky top-0 z-50 border-b border-white/10 backdrop-blur-md bg-slate-950/70">
         <div
-            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
-
-            <!-- Top Branding & Mobile Theme Toggle -->
-            <div class="w-full flex items-center justify-between md:w-auto">
-                <div class="flex items-center space-x-3">
+            class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-0 sm:h-20 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+            <div class="w-full sm:w-auto flex items-center justify-between">
+                <div class="flex items-center space-x-2.5 sm:space-x-3">
                     <div
-                        class="bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 text-white p-2.5 sm:p-3 rounded-2xl shadow-lg shadow-indigo-500/30 ring-1 ring-white/20 flex items-center justify-center flex-shrink-0">
+                        class="bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 text-white p-2.5 sm:p-3 rounded-xl sm:rounded-2xl shadow-lg shadow-indigo-500/30 ring-1 ring-white/20 flex items-center justify-center">
                         <i data-lucide="graduation-cap" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                     </div>
                     <div>
@@ -76,78 +74,79 @@
                             class="text-lg sm:text-2xl font-black bg-gradient-to-r from-white via-indigo-200 to-amber-300 bg-clip-text text-transparent tracking-tight">
                             PROFYNE ACADEMY</h1>
                         <p class="text-[9px] sm:text-[10px] font-semibold text-indigo-400 tracking-wider uppercase">
-                            Learn with Raihan Sir</p>
+                            Learn with Raihan
+                            Sir
+                        </p>
                     </div>
                 </div>
                 <button onclick="toggleDarkMode()"
-                    class="md:hidden p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 transition border border-white/10 shadow-sm flex-shrink-0"
+                    class="sm:hidden p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 transition border border-white/10 shadow-sm"
                     title="Toggle Theme">
                     <i id="theme-icon-mobile" data-lucide="sun" class="w-4 h-4 text-amber-400"></i>
                 </button>
             </div>
 
-            <!-- Navigation Controls -->
-            <div class="w-full md:w-auto flex items-center justify-between md:space-x-4">
+            <div class="w-full sm:w-auto flex items-center justify-between sm:space-x-4">
                 <button onclick="toggleDarkMode()"
-                    class="hidden md:flex p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 transition border border-white/10 shadow-sm flex-shrink-0"
+                    class="hidden sm:flex p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 transition border border-white/10 shadow-sm"
                     title="Toggle Theme">
                     <i id="theme-icon" data-lucide="sun" class="w-4 h-4 text-amber-400"></i>
                 </button>
 
-                <!-- Navigation Tabs -->
+                <!-- Navigation Tabs (3 Bars on Small Screens) -->
                 <div
-                    class="w-full grid grid-cols-3 sm:flex sm:flex-row bg-slate-900/90 p-1.5 rounded-2xl border border-white/10 shadow-inner gap-1.5">
+                    class="w-full sm:w-auto flex flex-row bg-slate-900/90 p-1 sm:p-1.5 rounded-2xl border border-white/10 shadow-inner gap-1 sm:gap-1.5 overflow-x-auto">
                     <button onclick="switchTab('student')" id="nav-student"
-                        class="px-2 sm:px-4 py-2 rounded-xl font-semibold text-xs sm:text-sm transition bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg flex items-center justify-center space-x-1 sm:space-x-2">
+                        class="flex-1 sm:flex-none px-2.5 sm:px-4 py-2 rounded-xl font-semibold text-xs sm:text-sm transition bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg flex items-center justify-center space-x-1.5 sm:space-x-2 whitespace-nowrap">
                         <i data-lucide="laptop-2" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
-                        <span class="truncate">Student</span>
+                        <span>Student Portal</span>
                     </button>
                     <button onclick="switchTab('written')" id="nav-written"
-                        class="px-2 sm:px-4 py-2 rounded-xl font-semibold text-xs sm:text-sm transition text-slate-400 hover:text-white flex items-center justify-center space-x-1 sm:space-x-2">
+                        class="flex-1 sm:flex-none px-2.5 sm:px-4 py-2 rounded-xl font-semibold text-xs sm:text-sm transition text-slate-400 hover:text-white flex items-center justify-center space-x-1.5 sm:space-x-2 whitespace-nowrap">
                         <i data-lucide="file-text" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
-                        <span class="truncate">Written</span>
+                        <span>Written Exam</span>
                     </button>
                     <button onclick="switchTab('admin')" id="nav-admin"
-                        class="px-2 sm:px-4 py-2 rounded-xl font-semibold text-xs sm:text-sm transition text-slate-400 hover:text-white flex items-center justify-center space-x-1 sm:space-x-2">
+                        class="flex-1 sm:flex-none px-2.5 sm:px-4 py-2 rounded-xl font-semibold text-xs sm:text-sm transition text-slate-400 hover:text-white flex items-center justify-center space-x-1.5 sm:space-x-2 whitespace-nowrap">
                         <i data-lucide="shield-lock" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400"></i>
-                        <span class="truncate">Admin</span>
+                        <span>Admin</span>
                     </button>
                 </div>
             </div>
-
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 relative z-10">
+    <main class="w-full max-w-4xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 relative z-10 flex-grow">
 
         <!-- STUDENT PORTAL VIEW -->
         <div id="student-view" class="space-y-6">
             <div id="quiz-start-card"
-                class="glass-card rounded-3xl p-6 sm:p-12 shadow-2xl max-w-xl mx-auto relative overflow-hidden border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                class="glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-12 shadow-2xl max-w-xl mx-auto relative overflow-hidden border border-white/10 bg-slate-900/40 backdrop-blur-xl">
                 <div
-                    class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-tr from-indigo-600 to-purple-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-indigo-500/30">
+                    class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-tr from-indigo-600 to-purple-600 text-white rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-xl shadow-indigo-500/30">
                     <i data-lucide="brain" class="w-8 h-8 sm:w-10 sm:h-10"></i>
                 </div>
                 <h2
                     class="text-2xl sm:text-3xl font-black mb-2 text-center bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
                     Quiz Registration</h2>
                 <p class="text-slate-400 text-xs sm:text-sm mb-6 text-center">Please enter your details (Profile picture
-                    is optional).</p>
+                    is
+                    optional).</p>
 
-                <form id="student-reg-form" onsubmit="startQuiz(event)" class="space-y-4 mb-4">
+                <form id="student-reg-form" onsubmit="startQuiz(event)" class="space-y-4 mb-4 sm:mb-8">
                     <!-- Profile Picture Upload (Optional) -->
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Profile
                             Picture <span class="text-slate-500 font-normal">(Optional)</span></label>
                         <div
-                            class="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-4 bg-slate-900/80 border border-slate-700/80 p-3 rounded-2xl">
+                            class="flex flex-col sm:flex-row items-start sm:items-center gap-3 bg-slate-900/80 border border-slate-700/80 p-3 rounded-2xl">
                             <div id="avatar-preview-container"
                                 class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center overflow-hidden border border-indigo-500/30 flex-shrink-0">
                                 <i data-lucide="user" class="w-6 h-6 text-slate-400"></i>
                             </div>
                             <input type="file" id="student-avatar-input" accept="image/*"
                                 onchange="previewAvatar(event)"
-                                class="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 cursor-pointer">
+                                class="w-full text-xs text-slate-400 file:mr-2 sm:file:mr-4 file:py-2 file:px-3 sm:file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 cursor-pointer">
                         </div>
                     </div>
 
@@ -155,62 +154,65 @@
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Full
                             Name</label>
                         <input type="text" id="student-name-input" required placeholder="e.g. Tanvir Ahmed"
-                            class="w-full px-4 py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white font-medium text-sm sm:text-base">
+                            class="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white text-sm font-medium">
                     </div>
 
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Trade /
                             Department</label>
                         <input type="text" id="student-trade-input" required placeholder="e.g. Computer Science"
-                            class="w-full px-4 py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white font-medium text-sm sm:text-base">
+                            class="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white text-sm font-medium">
                     </div>
 
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Phone
                             Number</label>
                         <input type="tel" id="student-phone-input" required placeholder="e.g. 01700000000"
-                            class="w-full px-4 py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white font-medium text-sm sm:text-base">
+                            class="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white text-sm font-medium">
                     </div>
 
                     <button type="submit"
-                        class="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 text-white font-bold py-3.5 sm:py-4 px-8 rounded-2xl shadow-xl shadow-indigo-600/30 transition text-sm sm:text-base flex items-center justify-center space-x-2 border border-white/20 mt-4">
+                        class="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 text-white font-bold py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl shadow-xl shadow-indigo-600/30 transition text-sm sm:text-base flex items-center justify-center space-x-2 border border-white/20 mt-4">
                         <span>Start Quiz Now</span>
-                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        <i data-lucide="arrow-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                     </button>
                 </form>
             </div>
 
             <!-- Quiz Screen -->
             <div id="quiz-box"
-                class="hidden glass-card rounded-3xl p-5 sm:p-10 shadow-2xl max-w-2xl mx-auto relative overflow-hidden border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                class="hidden glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-10 shadow-2xl max-w-2xl mx-auto relative overflow-hidden border border-white/10 bg-slate-900/40 backdrop-blur-xl">
                 <div
-                    class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-4 border-b border-white/10 gap-3">
-                    <div>
-                        <span id="greeting-student" class="text-xs font-bold text-indigo-400 block">Student</span>
+                    class="flex flex-row justify-between items-center gap-2 mb-4 sm:mb-6 pb-4 border-b border-white/10">
+                    <div class="space-y-1">
+                        <span id="greeting-student"
+                            class="text-[10px] sm:text-xs font-bold text-indigo-400 block truncate max-w-[120px] sm:max-w-xs">Student</span>
                         <span id="question-progress"
-                            class="text-xs sm:text-sm font-bold text-white bg-indigo-600/30 px-3 py-1 rounded-full border border-indigo-500/30 inline-block mt-1">Question
+                            class="text-xs sm:text-sm font-bold text-white bg-indigo-600/30 px-2.5 sm:px-3.5 py-1 rounded-full border border-indigo-500/30 inline-block">Question
                             1 / 10</span>
                     </div>
                     <div id="timer-badge"
-                        class="flex items-center space-x-2 text-amber-400 font-bold bg-amber-500/10 px-3.5 py-1.5 rounded-2xl border border-amber-500/20 text-xs sm:text-sm">
-                        <i data-lucide="clock" class="w-4 h-4 animate-spin"></i>
+                        class="flex items-center space-x-1.5 sm:space-x-2 text-amber-400 font-bold bg-amber-500/10 px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl sm:rounded-2xl border border-amber-500/20 text-xs sm:text-base flex-shrink-0">
+                        <i data-lucide="clock" class="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin"></i>
                         <span><span id="time-left">30</span> s</span>
                     </div>
                 </div>
 
-                <div class="w-full bg-slate-900/80 rounded-full h-2 mb-6 overflow-hidden border border-white/5">
+                <div class="w-full bg-slate-900/80 rounded-full h-2 mb-6 sm:mb-8 overflow-hidden border border-white/5">
                     <div id="timer-progress-bar"
                         class="bg-gradient-to-r from-indigo-500 to-pink-500 h-full w-full transition-all duration-1000 ease-linear">
                     </div>
                 </div>
 
-                <h3 id="question-text" class="text-lg sm:text-2xl font-bold mb-6 text-white leading-snug">Question text?
+                <h3 id="question-text"
+                    class="text-lg sm:text-2xl font-bold mb-6 sm:mb-8 text-white leading-snug break-words">Question
+                    text?
                 </h3>
-                <div id="options-container" class="space-y-3 mb-6"></div>
+                <div id="options-container" class="space-y-3 sm:space-y-3.5 mb-6 sm:mb-8"></div>
 
                 <div class="flex justify-end">
                     <button id="next-btn" onclick="nextQuestion()"
-                        class="hidden bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-3 px-6 sm:px-8 rounded-2xl transition shadow-lg flex items-center space-x-2 text-sm">
+                        class="hidden w-full sm:w-auto justify-center bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold py-3 sm:py-3.5 px-6 sm:px-8 rounded-2xl transition shadow-lg flex items-center space-x-2">
                         <span>Next Question</span>
                         <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </button>
@@ -220,31 +222,32 @@
             <!-- Result Card & Premium Glass User Card -->
             <div id="quiz-result-card" class="hidden space-y-6 max-w-xl mx-auto">
                 <div
-                    class="glass-card rounded-3xl p-6 sm:p-10 shadow-2xl text-center border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                    class="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-2xl text-center border border-white/10 bg-slate-900/40 backdrop-blur-xl">
                     <div
-                        class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-tr from-emerald-500 to-teal-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-emerald-500/30">
+                        class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-tr from-emerald-500 to-teal-600 text-white rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-xl shadow-emerald-500/30">
                         <i data-lucide="award" class="w-8 h-8 sm:w-10 sm:h-10"></i>
                     </div>
-                    <h2 class="text-2xl font-black mb-2 text-white">Quiz Completed!</h2>
-                    <p class="text-slate-400 mb-4 text-xs sm:text-sm">Here is your performance summary card below.</p>
+                    <h2 class="text-xl sm:text-2xl font-black mb-2 text-white">Quiz Completed!</h2>
+                    <p class="text-slate-400 mb-4 sm:mb-6 text-xs sm:text-sm">Here is your performance summary card
+                        below.</p>
                 </div>
 
                 <!-- Modern Premium Glass Student Badge Card -->
                 <div id="student-badge-card"
-                    class="relative overflow-hidden rounded-3xl p-6 sm:p-8 border border-white/20 bg-gradient-to-br from-indigo-950/80 via-slate-900/90 to-purple-950/80 shadow-2xl backdrop-blur-2xl text-white">
+                    class="relative overflow-hidden rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-white/20 bg-gradient-to-br from-indigo-950/80 via-slate-900/90 to-purple-950/80 shadow-2xl backdrop-blur-2xl text-white">
                     <div
                         class="absolute -top-12 -right-12 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl pointer-events-none">
                     </div>
 
-                    <div class="flex items-center space-x-4 sm:space-x-5 mb-6">
+                    <div class="flex flex-row items-center space-x-4 sm:space-x-5 mb-6">
                         <img id="badge-avatar" src="" alt="Avatar"
                             class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover border-2 border-indigo-400/50 shadow-lg flex-shrink-0">
                         <div class="min-w-0 flex-1">
                             <span
-                                class="text-[9px] sm:text-[10px] uppercase tracking-widest bg-indigo-500/20 text-indigo-300 font-extrabold px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full border border-indigo-500/30 inline-block mb-1">Profyne
+                                class="text-[9px] sm:text-[10px] uppercase tracking-widest bg-indigo-500/20 text-indigo-300 font-extrabold px-2.5 sm:px-3 py-1 rounded-full border border-indigo-500/30 inline-block mb-1 truncate">Profyne
                                 Scholar</span>
                             <h3 id="badge-name"
-                                class="text-xl sm:text-2xl font-black tracking-tight text-white truncate">Student Name
+                                class="text-lg sm:text-2xl font-black tracking-tight text-white truncate">Student Name
                             </h3>
                             <p id="badge-trade" class="text-xs sm:text-sm font-medium text-slate-300 truncate">Trade:
                                 Computer Science</p>
@@ -252,22 +255,22 @@
                     </div>
 
                     <div class="grid grid-cols-2 gap-3 sm:gap-4 pt-4 border-t border-white/10">
-                        <div class="bg-slate-900/50 p-3.5 sm:p-4 rounded-2xl border border-white/5">
+                        <div class="bg-slate-900/50 p-3 sm:p-4 rounded-2xl border border-white/5">
                             <span class="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 block mb-1">Final
                                 Score</span>
-                            <span id="badge-score" class="text-2xl sm:text-3xl font-black text-amber-400">0 / 0</span>
+                            <span id="badge-score" class="text-xl sm:text-3xl font-black text-amber-400">0 / 0</span>
                         </div>
-                        <div class="bg-slate-900/50 p-3.5 sm:p-4 rounded-2xl border border-white/5">
+                        <div class="bg-slate-900/50 p-3 sm:p-4 rounded-2xl border border-white/5">
                             <span
                                 class="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400 block mb-1">Submission
                                 Date</span>
                             <span id="badge-date"
-                                class="text-[11px] sm:text-xs font-semibold text-slate-300 mt-1.5 block truncate">--</span>
+                                class="text-[10px] sm:text-xs font-semibold text-slate-300 mt-2 block truncate">--</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row gap-3">
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     <button onclick="resetQuiz()"
                         class="flex-1 bg-white/5 hover:bg-white/10 font-bold py-3.5 px-6 rounded-2xl transition border border-white/10 flex items-center justify-center space-x-2 text-sm">
                         <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
@@ -285,44 +288,45 @@
         <!-- WRITTEN PORTAL VIEW -->
         <div id="written-view" class="hidden space-y-6">
             <div
-                class="glass-card rounded-3xl p-6 sm:p-12 shadow-2xl max-w-2xl mx-auto border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                class="glass-card rounded-2xl sm:rounded-3xl p-5 sm:p-12 shadow-2xl max-w-2xl mx-auto border border-white/10 bg-slate-900/40 backdrop-blur-xl">
                 <div
-                    class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-tr from-purple-600 to-pink-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-purple-500/30">
+                    class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-tr from-purple-600 to-pink-600 text-white rounded-2xl sm:rounded-3xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-xl shadow-purple-500/30">
                     <i data-lucide="pen-tool" class="w-8 h-8 sm:w-10 sm:h-10"></i>
                 </div>
                 <h2
                     class="text-2xl sm:text-3xl font-black mb-2 text-center bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
                     Written Examination</h2>
                 <p class="text-slate-400 text-xs sm:text-sm mb-6 text-center">Please fill in your details and answer the
-                    written questions below.</p>
+                    written
+                    questions below.</p>
 
-                <form id="written-form" onsubmit="submitWrittenAnswers(event)" class="space-y-6">
+                <form id="written-form" onsubmit="submitWrittenAnswers(event)" class="space-y-4 sm:space-y-6">
                     <div class="space-y-4 pb-4 border-b border-white/10">
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Full
                                 Name</label>
                             <input type="text" id="written-name" required placeholder="e.g. Tanvir Ahmed"
-                                class="w-full px-4 py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white font-medium text-sm sm:text-base">
+                                class="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white text-sm font-medium">
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Trade
                                 / Department</label>
                             <input type="text" id="written-trade" required placeholder="e.g. Computer Science"
-                                class="w-full px-4 py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white font-medium text-sm sm:text-base">
+                                class="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white text-sm font-medium">
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">Phone
                                 Number</label>
                             <input type="tel" id="written-phone" required placeholder="e.g. 01700000000"
-                                class="w-full px-4 py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white font-medium text-sm sm:text-base">
+                                class="w-full px-3.5 sm:px-4 py-3 sm:py-3.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 focus:border-indigo-500 outline-none text-white text-sm font-medium">
                         </div>
                     </div>
 
                     <!-- Dynamic Written Questions Container -->
-                    <div id="written-questions-container" class="space-y-6"></div>
+                    <div id="written-questions-container" class="space-y-4 sm:space-y-6"></div>
 
                     <button type="submit"
-                        class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 text-white font-bold py-3.5 sm:py-4 px-8 rounded-2xl shadow-xl transition text-sm sm:text-base">
+                        class="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 text-white font-bold py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl shadow-xl transition text-sm sm:text-base">
                         Submit All Written Answers
                     </button>
                 </form>
@@ -333,18 +337,18 @@
         <div id="admin-view" class="hidden space-y-6 sm:space-y-8">
             <!-- Lockscreen -->
             <div id="admin-lockscreen"
-                class="glass-card rounded-3xl p-6 sm:p-10 shadow-2xl text-center max-w-md mx-auto border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                class="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-2xl text-center max-w-md mx-auto border border-white/10 bg-slate-900/40 backdrop-blur-xl">
                 <div
-                    class="w-16 h-16 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-amber-500/30">
-                    <i data-lucide="shield-check" class="w-8 h-8"></i>
+                    class="w-14 h-14 sm:w-16 sm:h-16 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-amber-500/30">
+                    <i data-lucide="shield-check" class="w-7 h-7 sm:w-8 sm:h-8"></i>
                 </div>
                 <h2 class="text-xl sm:text-2xl font-black mb-2 text-white">Admin Authentication</h2>
                 <p class="text-slate-400 text-xs sm:text-sm mb-6">Enter admin password to manage portal.</p>
                 <form onsubmit="handleAdminLogin(event)" class="space-y-4 text-left">
                     <input type="password" id="admin-password-input" required placeholder="Password..."
-                        class="w-full rounded-2xl bg-slate-900/90 border border-slate-700 px-4 py-3.5 outline-none font-medium text-white text-sm sm:text-base">
+                        class="w-full rounded-2xl bg-slate-900/90 border border-slate-700 px-4 py-3 sm:py-3.5 outline-none font-medium text-white text-sm">
                     <button type="submit"
-                        class="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black py-3.5 px-6 rounded-2xl shadow-lg transition text-sm sm:text-base">
+                        class="w-full bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-black py-3 sm:py-3.5 px-6 rounded-2xl shadow-lg transition text-sm sm:text-base">
                         Login
                     </button>
                 </form>
@@ -353,30 +357,31 @@
             <!-- Unlocked Admin Dashboard -->
             <div id="admin-dashboard" class="hidden space-y-6 sm:space-y-8">
                 <div
-                    class="glass-card p-5 sm:p-6 rounded-3xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border border-white/10 bg-slate-900/40 backdrop-blur-xl">
-                    <div class="flex items-center space-x-3">
+                    class="glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl flex flex-col sm:flex-row justify-between items-center gap-4 border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                    <div class="flex items-center space-x-3 w-full sm:w-auto">
                         <div
-                            class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 flex-shrink-0">
-                            <i data-lucide="user-cog" class="w-6 h-6"></i>
+                            class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30 flex-shrink-0">
+                            <i data-lucide="user-cog" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                         </div>
                         <div>
                             <h3 class="font-bold text-white text-base sm:text-lg">Admin Control Center</h3>
-                            <p class="text-xs text-slate-400">Manage Quiz, Written Questions & Submissions</p>
+                            <p class="text-[10px] sm:text-xs text-slate-400">Manage Quiz, Written Questions &
+                                Submissions</p>
                         </div>
                     </div>
-                    <div class="flex flex-wrap gap-2 w-full md:w-auto">
+                    <div class="flex flex-wrap gap-2 w-full sm:w-auto justify-start sm:justify-end">
                         <button onclick="openSettingsModal()"
-                            class="flex-1 md:flex-initial px-3 py-2 rounded-xl bg-indigo-500/20 text-indigo-300 font-semibold text-xs border border-indigo-500/30 flex items-center justify-center space-x-1.5">
+                            class="px-3 sm:px-3.5 py-2 rounded-xl bg-indigo-500/20 text-indigo-300 font-semibold text-xs border border-indigo-500/30 flex items-center space-x-1.5">
                             <i data-lucide="settings" class="w-3.5 h-3.5"></i>
                             <span>Timer</span>
                         </button>
                         <button onclick="openPasswordModal()"
-                            class="flex-1 md:flex-initial px-3 py-2 rounded-xl bg-amber-500/20 text-amber-300 font-semibold text-xs border border-amber-500/30 flex items-center justify-center space-x-1.5">
+                            class="px-3 sm:px-3.5 py-2 rounded-xl bg-amber-500/20 text-amber-300 font-semibold text-xs border border-amber-500/30 flex items-center space-x-1.5">
                             <i data-lucide="key" class="w-3.5 h-3.5"></i>
-                            <span>Password</span>
+                            <span>Change Password</span>
                         </button>
                         <button onclick="handleAdminLogout()"
-                            class="flex-1 md:flex-initial px-3 py-2 rounded-xl bg-rose-500/10 text-rose-400 font-semibold text-xs border border-rose-500/20 flex items-center justify-center space-x-1.5">
+                            class="px-3 sm:px-3.5 py-2 rounded-xl bg-rose-500/10 text-rose-400 font-semibold text-xs border border-rose-500/20 flex items-center space-x-1.5">
                             <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
                             <span>Logout</span>
                         </button>
@@ -384,32 +389,35 @@
                 </div>
 
                 <!-- Written Exam Question Setup Form -->
-                <div class="glass-card p-5 sm:p-8 rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                <div
+                    class="glass-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
                     <h2 class="text-lg sm:text-xl font-bold mb-4 flex items-center text-purple-400">
-                        <i data-lucide="file-pen" class="w-5 h-5 mr-2"></i>Manage Written Exam Questions
+                        <i data-lucide="file-pen" class="w-5 h-5 mr-2 flex-shrink-0"></i>Manage Written Exam Questions
                     </h2>
                     <form onsubmit="addWrittenExamQuestion(event)" class="space-y-4 mb-6">
                         <textarea id="admin-written-q-input" rows="2" required
                             placeholder="Type a new written exam question..."
-                            class="w-full rounded-2xl bg-slate-900/90 border border-slate-700 p-3.5 outline-none text-white font-medium text-sm"></textarea>
+                            class="w-full rounded-2xl bg-slate-900/90 border border-slate-700 p-3.5 outline-none text-white text-sm font-medium"></textarea>
                         <button type="submit"
-                            class="bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold px-6 py-3 rounded-xl text-xs sm:text-sm shadow-lg">
+                            class="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold px-6 py-3 rounded-xl text-sm shadow-lg">
                             Add Written Question
                         </button>
                     </form>
 
                     <div class="space-y-3">
                         <h3 class="text-xs sm:text-sm font-bold text-slate-300 uppercase tracking-wider">Active Written
-                            Questions</h3>
-                        <div id="admin-written-questions-list" class="space-y-2 max-h-[250px] overflow-y-auto pr-2">
+                            Questions
+                        </h3>
+                        <div id="admin-written-questions-list" class="space-y-2 max-h-[250px] overflow-y-auto pr-1">
                         </div>
                     </div>
                 </div>
 
                 <!-- MCQ Question Add Form -->
-                <div class="glass-card p-5 sm:p-8 rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                <div
+                    class="glass-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
                     <h2 id="form-title" class="text-lg sm:text-xl font-bold mb-6 flex items-center text-indigo-400">
-                        <i data-lucide="plus-circle" class="w-5 h-5 mr-2"></i>Add MCQ Question
+                        <i data-lucide="plus-circle" class="w-5 h-5 mr-2 flex-shrink-0"></i>Add MCQ Question
                     </h2>
                     <form id="question-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
                         <input type="hidden" id="edit-index" value="-1">
@@ -417,47 +425,50 @@
                             class="w-full rounded-2xl bg-slate-900/90 border border-slate-700 p-3.5 outline-none font-medium text-white text-sm"></textarea>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                             <input type="text" id="opt-0" required placeholder="Option A"
-                                class="rounded-xl bg-slate-900/90 border border-slate-700 p-3 outline-none text-white text-xs sm:text-sm">
+                                class="rounded-xl bg-slate-900/90 border border-slate-700 p-3 outline-none text-white text-sm">
                             <input type="text" id="opt-1" required placeholder="Option B"
-                                class="rounded-xl bg-slate-900/90 border border-slate-700 p-3 outline-none text-white text-xs sm:text-sm">
+                                class="rounded-xl bg-slate-900/90 border border-slate-700 p-3 outline-none text-white text-sm">
                             <input type="text" id="opt-2" required placeholder="Option C"
-                                class="rounded-xl bg-slate-900/90 border border-slate-700 p-3 outline-none text-white text-xs sm:text-sm">
+                                class="rounded-xl bg-slate-900/90 border border-slate-700 p-3 outline-none text-white text-sm">
                             <input type="text" id="opt-3" required placeholder="Option D"
-                                class="rounded-xl bg-slate-900/90 border border-slate-700 p-3 outline-none text-white text-xs sm:text-sm">
+                                class="rounded-xl bg-slate-900/90 border border-slate-700 p-3 outline-none text-white text-sm">
                         </div>
                         <select id="correct-opt"
-                            class="w-full rounded-2xl bg-slate-900/90 border border-slate-700 p-3.5 outline-none font-medium text-white text-xs sm:text-sm">
+                            class="w-full rounded-2xl bg-slate-900/90 border border-slate-700 p-3.5 outline-none font-medium text-white text-sm">
                             <option value="0">Option A Correct</option>
                             <option value="1">Option B Correct</option>
                             <option value="2">Option C Correct</option>
                             <option value="3">Option D Correct</option>
                         </select>
-                        <div class="flex justify-end space-x-3 pt-3">
+                        <div class="flex flex-col sm:flex-row justify-end gap-2 sm:space-x-3 pt-3">
                             <button type="button" id="cancel-edit-btn" onclick="cancelEdit()"
-                                class="hidden bg-white/5 px-5 py-2.5 rounded-xl border border-white/10 text-xs sm:text-sm">Cancel</button>
+                                class="hidden bg-white/5 px-5 py-2.5 rounded-xl border border-white/10 text-sm">Cancel</button>
                             <button type="submit" id="submit-btn"
-                                class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold px-6 sm:px-7 py-3 rounded-xl shadow-lg text-xs sm:text-sm">Save
+                                class="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold px-7 py-3 rounded-xl shadow-lg text-sm">Save
                                 Question</button>
                         </div>
                     </form>
                 </div>
 
                 <!-- Manage Questions List -->
-                <div class="glass-card p-5 sm:p-8 rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                <div
+                    class="glass-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
                     <h2 class="text-lg sm:text-xl font-bold mb-4 flex items-center justify-between text-white">
                         <span><i data-lucide="list-checks" class="w-5 h-5 text-indigo-400 mr-2 inline"></i>Question
                             Bank</span>
                         <span id="admin-total-count"
                             class="text-xs bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full border border-indigo-500/30">0</span>
                     </h2>
-                    <div id="admin-questions-list" class="space-y-3 max-h-[350px] overflow-y-auto pr-2"></div>
+                    <div id="admin-questions-list" class="space-y-4 max-h-[350px] overflow-y-auto pr-1"></div>
                 </div>
 
                 <!-- Quiz Submissions Cards -->
-                <div class="glass-card p-5 sm:p-8 rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                <div
+                    class="glass-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
                     <div class="flex items-center justify-between mb-6">
                         <h2 class="text-lg sm:text-xl font-bold flex items-center text-white">
-                            <i data-lucide="users" class="w-5 h-5 text-amber-400 mr-2"></i>Quiz Submissions
+                            <i data-lucide="users" class="w-5 h-5 text-amber-400 mr-2 flex-shrink-0"></i>Quiz
+                            Submissions
                         </h2>
                         <button onclick="clearSubmissions()"
                             class="px-3 py-1.5 rounded-xl bg-rose-500/10 text-rose-400 font-semibold text-xs border border-rose-500/30">Clear
@@ -467,10 +478,12 @@
                 </div>
 
                 <!-- Written Exam Submissions Cards -->
-                <div class="glass-card p-5 sm:p-8 rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
+                <div
+                    class="glass-card p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-white/10 bg-slate-900/40 backdrop-blur-xl">
                     <div class="flex items-center justify-between mb-6">
                         <h2 class="text-lg sm:text-xl font-bold flex items-center text-white">
-                            <i data-lucide="book-open" class="w-5 h-5 text-purple-400 mr-2"></i>Written Submissions
+                            <i data-lucide="book-open" class="w-5 h-5 text-purple-400 mr-2 flex-shrink-0"></i>Written
+                            Submissions
                         </h2>
                         <button onclick="clearWrittenSubmissions()"
                             class="px-3 py-1.5 rounded-xl bg-rose-500/10 text-rose-400 font-semibold text-xs border border-rose-500/30">Clear
@@ -485,15 +498,16 @@
     <!-- Timer Settings Modal -->
     <div id="settings-modal"
         class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="glass-card rounded-3xl p-6 sm:p-8 max-w-md w-full border border-white/10 bg-slate-900 shadow-2xl">
-            <h3 class="text-xl font-bold mb-4 text-white">Quiz Timer Settings</h3>
+        <div
+            class="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 max-w-md w-full border border-white/10 bg-slate-900 shadow-2xl">
+            <h3 class="text-lg sm:text-xl font-bold mb-4 text-white">Quiz Timer Settings</h3>
             <input type="number" id="setting-timer-input" min="5" max="120" value="30"
                 class="w-full rounded-2xl bg-slate-950 border border-slate-700 p-3.5 text-white font-bold mb-6 outline-none text-sm">
             <div class="flex justify-end space-x-3">
                 <button onclick="closeSettingsModal()"
-                    class="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm">Cancel</button>
+                    class="px-4 sm:px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs sm:text-sm">Cancel</button>
                 <button onclick="saveTimerSetting()"
-                    class="px-6 py-2.5 rounded-xl bg-indigo-600 font-bold text-white text-sm">Save</button>
+                    class="px-5 sm:px-6 py-2.5 rounded-xl bg-indigo-600 font-bold text-white text-xs sm:text-sm">Save</button>
             </div>
         </div>
     </div>
@@ -502,17 +516,37 @@
     <div id="password-modal"
         class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
         <div
-            class="glass-card rounded-3xl p-6 sm:p-8 max-w-md w-full border border-white/10 bg-slate-900 shadow-2xl space-y-4">
-            <h3 class="text-xl font-bold text-white">Change Admin Password</h3>
+            class="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 max-w-md w-full border border-white/10 bg-slate-900 shadow-2xl space-y-4">
+            <h3 class="text-lg sm:text-xl font-bold text-white">Change Admin Password</h3>
             <input type="password" id="new-admin-pass" placeholder="Enter new password"
                 class="w-full rounded-2xl bg-slate-950 border border-slate-700 p-3.5 text-white font-bold outline-none text-sm">
             <div class="flex justify-end space-x-3 pt-2">
                 <button onclick="closePasswordModal()"
-                    class="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm">Cancel</button>
+                    class="px-4 sm:px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs sm:text-sm">Cancel</button>
                 <button onclick="saveAdminPassword()"
-                    class="px-6 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-sm">Update
+                    class="px-5 sm:px-6 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs sm:text-sm">Update
                     Password</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Written Exam Submission Success Glass Popup Modal -->
+    <div id="written-success-modal"
+        class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div
+            class="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 max-w-md w-full border border-white/10 bg-slate-900/90 shadow-2xl text-center space-y-4 backdrop-blur-2xl">
+            <div
+                class="w-14 h-14 sm:w-16 sm:h-16 bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center mx-auto border border-emerald-500/30">
+                <i data-lucide="check-circle" class="w-7 h-7 sm:w-8 sm:h-8"></i>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-black text-white">Submission Successful!</h3>
+            <p class="text-slate-300 text-xs sm:text-sm">আপনার লিখিত উত্তরগুলো সফলভাবে জমা হয়েছে। রাইহান স্যার খুব
+                শীঘ্রই এগুলো
+                মূল্যায়ন করবেন।</p>
+            <button onclick="closeWrittenModal()"
+                class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold py-3.5 px-6 rounded-2xl shadow-lg transition hover:from-emerald-400 text-sm">
+                ঠিক আছে (OK)
+            </button>
         </div>
     </div>
 
@@ -520,10 +554,10 @@
     <div id="profyne-popup-modal"
         class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4">
         <div
-            class="glass-card rounded-3xl p-6 sm:p-8 max-w-md w-full border border-white/10 bg-slate-900/90 shadow-2xl text-center space-y-4 backdrop-blur-2xl">
+            class="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 max-w-md w-full border border-white/10 bg-slate-900/90 shadow-2xl text-center space-y-4 backdrop-blur-2xl">
             <div id="popup-icon-container"
-                class="w-16 h-16 bg-purple-500/20 text-purple-400 rounded-2xl flex items-center justify-center mx-auto border border-purple-500/30">
-                <i data-lucide="check-circle-2" class="w-8 h-8"></i>
+                class="w-14 h-14 sm:w-16 sm:h-16 bg-purple-500/20 text-purple-400 rounded-2xl flex items-center justify-center mx-auto border border-purple-500/30">
+                <i data-lucide="check-circle-2" class="w-7 h-7 sm:w-8 sm:h-8"></i>
             </div>
             <h3 id="popup-title" class="text-xl sm:text-2xl font-black text-white">Title</h3>
             <p id="popup-message" class="text-slate-300 text-xs sm:text-sm">Message</p>
